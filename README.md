@@ -56,6 +56,27 @@
 
 ------------------------------------------------------------------------
 
+## cnnpractice.ipynb
+> *cifar10 dataset 을 활용하여 CNN 모델을 구성하고 학습시켜보았습니다. 기본모델에서 다양한 함수들을 추가했을때의 성능 차이와, VGG16NET
+과 같은 기존의 CNN 모델들을 간단히 따라해보며 성능차이를 분석하였습니다.*
+> (https://bskyvision.com/504) VGGnet 구조 참조, (https://colab.research.google.com/drive/1eHjcLuiWS2Yr42vnvzzQSBkZMOXaXh_x#scrollTo=kA-iZILBzhtm) cnn 모델 코드 참조
+> * CNN 기본모델을 작성하였습니다. tensorflow 내의 cifar10 dataset 을 import 하여 사용하였습니다. 4개의 con2vd layer 와 3개의
+ flatten 모델을 사용하였습니다. softmax crossentropy 와 optimizer 로는 adamoptimizer 를 사용하였습니다 (learningrate = 0.0001)
+ 
+### 기본 모델 실행결과 및 모델 수정
+> Epoch 을 100으로 설정하였을때 정확도가 약 64%정도로 나왔었습니다.
+> 모델을 발전시키기 위해 dropout, batchn normalization 을 하면 얼마나 성능이 좋아질지 확인해보도록 하였습니다.
+> * 앞선 기본모델의 dropout layer 만 추가하였습니다. 검색결과 dropout 과 normalization 이 같은 효과를 낸다고 하여 둘을 동시에 사용하기 보단 dropout 만 사용하였습니다.
+> * 실행결과, 정확도는 53.26%로 오히려 기본모델보다 약간 떨어지는 결과를 나타내었습니다.
+> 저는 이를 학습 epoch 가 충분하지 않아 그런것이라 판단했습니다.
+
+### VGG16-Net
+> 다른 모델에 비해 layer 를 깊게 쌓는것에 중점을 둔 모델입니다
+> 필터커널 사이즈는 3x3으로 고정, 다른 모델은 5x5 를 사용하는것을 3x3 필터를 두번 통과시키면서 5x5를 사용한 것과 같은 결과의 크기를 얻을뿐 아니라 특성의 비선형성도 증가시킵니다. 제가 구현한 기본모델과의 차이점은 16개의 layer를 구현하였고 feature개수를 많이 증가시켰습니다
+> * 모델의 특징으론 1번 conv 하고 pooling 하는것이 아닌 3x3필터로 2번 conv 하고 풀링
+> * 총 5번의 conv,pooling(2번 1번)을 거쳐 13개의 conv layer 를 생성(conv4,5의 구간에선 3번 convolution 진행)
+> * 64 -> 256 -> 512 -> 512 로 feature는 증가하지만 pooling 을 통해 크기는 줄어듦. 마지막 단에선 pooling 을 통해 size 가 1이 되버립니다
+> * 20번 학습에 65.44%의 정확도를 나타내었습니다. 기본모델과 dropout 추가모델에 비해 성능이 약 10%증가하였습니다. epoch 수가 늘어나면 더욱 더 좋은 성능을 낼것이라고 예상됩니다.
 
 ------------------------------------------------------------------------
 
