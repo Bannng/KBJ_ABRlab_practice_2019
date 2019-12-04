@@ -21,7 +21,10 @@
  > *  google colab을 사용하여 코드를 작성하였습니다. 파일을 업로드 하기위해서 colab drive mount 를 통해 tar file에 접근하였습니다
  > * `!tar -xvf cifar-10-python.tar.gz` 명령어를 통해 tar 파일 압축을 해제하였습니다
  > * 함수 unpickle에서 사용된 pickle 모듈은 텍스트가 아닌 리스트나 클래스 같은 자료형 데이터를 저장, 불러올때 사용하는 모듈로, 데이터를 바이트형식으로 읽거나 써진 데이터에 사용됩니다.
- > * 함수 load_cifar_10_data 
-
+ > * 함수 load_cifar_10_data 의 Meta_data_dict 는 unpickle 함수로 데이터를 저장하고 Cifar_label_names = meta_data_dixt 에 있는 것들을 b형식으로 읽어와서 다시 array 담게됩니다. Train_data, filename, label 을 초기화 합니다
+ > * For문 을 사용하여 파일 1~6까지 접근합니다. 첫번째 파일인 data_batch_1은 빈곳에 담고 나머지 2~6파일은 np.vstack 을 통해 세로로 이어붙힙니다.
+ > * Filename 과 label 은 빈리스트에 담습니다. 불러운 train_data를 reshape, inputdata의 개수(len(cifar_train_data)),RGB의 3채널, 32x32의 꼴로 변환합니다.
+> * Test_data도 앞의 traindata 처리와 같이 실행합니다
+> * 마지막으로 이미지를 확인합니다. Num_plot 을 설정하여 이미지를 출력합니다. np.random.shuffle()을 사용하여 실행될때마다 data 가 shuffle 되게 합니다.
 
 
